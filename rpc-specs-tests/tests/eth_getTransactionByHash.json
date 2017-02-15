@@ -1,0 +1,93 @@
+{
+  "title" : "eth_getTransactionByHash",
+
+  "schema": {
+    "$ref": "../schemas/eth_getTransactionByHash.json"
+  },
+
+  "chainConfig" : {
+    "$ref": "../configs/bcRPC_API_Test.json"
+  },
+
+  "tests": [
+    {
+      "title": "eth_getTransactionByHash get tx hash",
+      "request" : {
+        "method" : "eth_getTransactionByHash",
+        "params" : ["0xb1a62356d1433202cdef0ef9030f8abdfbb3aef549fab0867cf0eaee70b09d81"]
+      },
+      "expectedResponse" : {
+        "result": {
+          "blockHash": "0x0e29f455b8db7b15042efe9eabe0beb0ce2c7901919bba1107b1352191e09942",
+          "blockNumber": "0x2",
+          "from": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
+          "gas": "0x4cb2f",
+          "gasPrice": "0x1",
+          "hash": "0xb1a62356d1433202cdef0ef9030f8abdfbb3aef549fab0867cf0eaee70b09d81",
+          "input": "0x12a7b914",
+          "nonce": "0x1",
+          "r": "0xed2e0f715eccaab4362c19c1cf35ad8031ab1cabe71ada3fe8b269fe9d726712",
+          "s": "0x6691074f289f826d23c92808ae363959eb958fb7a91fc721875ece4958114c65",
+          "to": "0x6295ee1b4f6dd65047762f924ecd367c17eabf8f",
+          "transactionIndex": "0x0",
+          "v": "0x1b",
+          "value": "0xa"
+        }
+      },
+      "asserts": [
+        {
+          "description": "response has tx hash",
+          "program": ".receivedResponse.result.hash != null"
+        },
+        {
+          "description" : "tx hashes should be equal",
+          "program" : ".receivedResponse.result.hash == .expectedResponse.result.hash"
+        },
+        {
+          "description": "blockNumber should be 2",
+          "program": ".receivedResponse.result.blockNumber == .expectedResponse.result.blockNumber"
+        }
+      ]
+    },
+    {
+      "title": "eth_getTransactionByHash with no parameters",
+      "request" : {
+        "method" : "eth_getTransactionByHash",
+        "params" : [],
+        "shouldFailSchema": true
+      },
+      "expectedResponse" : {
+        "error": {
+          "message": "missing value for required argument 0",
+          "code": -32602
+        }
+      },
+      "asserts": [
+        {
+          "description": "response should be an error",
+          "program": ".receivedResponse.error != null"
+        },
+        {
+          "description": "error code should be -32602",
+          "program": ".receivedResponse.error.code == .expectedResponse.error.code"
+        }
+      ]
+    },
+    {
+      "title": "eth_getTransactionByHash nonexistent tx",
+      "request" : {
+        "method" : "eth_getTransactionByHash",
+        "params" : ["0xd2f1575105fd2272914d77355b8dab5afbdde4b012abd849e8b32111be498b0d"]
+      },
+      "expectedResponse" : {
+        "result": null
+      },
+      "asserts": [
+        {
+          "description": "response should be null",
+          "program": ".receivedResponse.result == null"
+        }
+      ]
+    }
+  ]
+}

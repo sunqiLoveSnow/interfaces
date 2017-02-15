@@ -1,0 +1,170 @@
+{
+  "title" : "eth_getBlockByHash",
+
+  "schema": {
+    "$ref": "../schemas/eth_getBlockByHash.json"
+  },
+
+  "chainConfig" : {
+    "$ref": "../configs/bcRPC_API_Test.json"
+  },
+
+  "tests": [
+    {
+      "title": "eth_getBlockByHash without full transactions",
+      "request" : {
+        "method" : "eth_getBlockByHash",
+        "params" : ["0x0e29f455b8db7b15042efe9eabe0beb0ce2c7901919bba1107b1352191e09942", false]
+      },
+      "expectedResponse" : {
+        "result": {
+          "difficulty": "0x20040",
+          "extraData": "0x",
+          "gasLimit": "0x2fefd8",
+          "gasUsed": "0x53f0",
+          "hash": "0x0e29f455b8db7b15042efe9eabe0beb0ce2c7901919bba1107b1352191e09942",
+          "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "miner": "0x8888f1f195afa192cfee860698584c030f4c9db1",
+          "mixHash": "0xa69a8faba7b51b68dec09647753d1657c918918b0adfc224749174eb0ce02fa9",
+          "nonce": "0xf02576d9a03e7146",
+          "number": "0x2",
+          "parentHash": "0x10aaf14a53caf27552325374429d3558398a36d3682ede6603c2c6511896e9f9",
+          "receiptsRoot": "0xe9111d31a5282e8d68d1beaf1821405a9716182e2b780a724e1e6b78c609c6f3",
+          "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+          "size": "0x268",
+          "stateRoot": "0x52cbd86e23f3cd03140f49302f32ace2583c5e046c91049eb10136266b932cac",
+          "timestamp": "0x561bc2e2",
+          "totalDifficulty": "0x60040",
+          "transactions": [
+            "0xb1a62356d1433202cdef0ef9030f8abdfbb3aef549fab0867cf0eaee70b09d81"
+          ],
+          "transactionsRoot": "0xf6f36662c7d5cd443067f551d9874f11a9dfc9c3cfd72388beb19e60b585938c",
+          "uncles": []
+        }
+      },
+      "asserts": [
+        {
+          "description": "response has blockHeader hash",
+          "program": ".receivedResponse.result.hash != null"
+        },
+        {
+          "description" : "headers should be equal",
+          "program" : ".receivedResponse.result.hash == .expectedResponse.result.hash"
+        },
+        {
+          "description": "transactions should be hashes",
+          "program": ".receivedResponse.result.transactions[] | type == \"string\""
+        }
+      ]
+    },
+    {
+      "title": "eth_getBlockByHash with full transactions",
+      "request" : {
+        "method" : "eth_getBlockByHash",
+        "params" : ["0x0e29f455b8db7b15042efe9eabe0beb0ce2c7901919bba1107b1352191e09942", true]
+      },
+      "expectedResponse" : {
+        "result": {
+          "difficulty": "0x20040",
+          "extraData": "0x",
+          "gasLimit": "0x2fefd8",
+          "gasUsed": "0x53f0",
+          "hash": "0x0e29f455b8db7b15042efe9eabe0beb0ce2c7901919bba1107b1352191e09942",
+          "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "miner": "0x8888f1f195afa192cfee860698584c030f4c9db1",
+          "mixHash": "0xa69a8faba7b51b68dec09647753d1657c918918b0adfc224749174eb0ce02fa9",
+          "nonce": "0xf02576d9a03e7146",
+          "number": "0x2",
+          "parentHash": "0x10aaf14a53caf27552325374429d3558398a36d3682ede6603c2c6511896e9f9",
+          "receiptsRoot": "0xe9111d31a5282e8d68d1beaf1821405a9716182e2b780a724e1e6b78c609c6f3",
+          "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+          "size": "0x268",
+          "stateRoot": "0x52cbd86e23f3cd03140f49302f32ace2583c5e046c91049eb10136266b932cac",
+          "timestamp": "0x561bc2e2",
+          "totalDifficulty": "0x60040",
+          "transactions": [
+            { "r": "0xed2e0f715eccaab4362c19c1cf35ad8031ab1cabe71ada3fe8b269fe9d726712",
+              "gas": "0x4cb2f",
+              "v": "0x1b",
+              "blockNumber": "0x2",
+              "blockHash": "0x0e29f455b8db7b15042efe9eabe0beb0ce2c7901919bba1107b1352191e09942",
+              "input": "0x12a7b914",
+              "transactionIndex": "0x0",
+              "hash": "0xb1a62356d1433202cdef0ef9030f8abdfbb3aef549fab0867cf0eaee70b09d81",
+              "s": "0x6691074f289f826d23c92808ae363959eb958fb7a91fc721875ece4958114c65",
+              "nonce": "0x1",
+              "gasPrice": "0x1",
+              "from": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
+              "value": "0xa",
+              "to": "0x6295ee1b4f6dd65047762f924ecd367c17eabf8f"
+            }
+          ],
+          "transactionsRoot": "0xf6f36662c7d5cd443067f551d9874f11a9dfc9c3cfd72388beb19e60b585938c",
+          "uncles": []
+        }
+      },
+      "asserts": [
+        {
+          "description": "response has blockHeader hash",
+          "program": ".receivedResponse.result.hash != null"
+        },
+        {
+          "description" : "headers should be equal",
+          "program" : ".receivedResponse.result.hash == .expectedResponse.result.hash"
+        },
+        {
+          "description": "transactions should be objects",
+          "program": ".receivedResponse.result.transactions[] | type == \"object\""
+        }
+      ]
+    },
+    {
+      "title": "eth_getBlockByHash with no parameters",
+      "request" : {
+        "method" : "eth_getBlockByHash",
+        "params" : [],
+        "shouldFailSchema": true
+      },
+      "expectedResponse" : {
+        "error": {
+          "message": "missing value for required argument 0",
+          "code": -32602
+        }
+      },
+      "asserts": [
+        {
+          "description": "response should be an error",
+          "program": ".receivedResponse.error != null"
+        },
+        {
+          "description": "error code should be -32602",
+          "program": ".receivedResponse.error.code == .expectedResponse.error.code"
+        }
+      ]
+    },
+    {
+      "title": "eth_getBlockByHash with one parameter",
+      "request" : {
+        "method" : "eth_getBlockByHash",
+        "params" : ["0x0e29f455b8db7b15042efe9eabe0beb0ce2c7901919bba1107b1352191e09942"],
+        "shouldFailSchema": true
+      },
+      "expectedResponse" : {
+        "error": {
+          "message": "missing value for required argument 0",
+          "code": -32602
+        }
+      },
+      "asserts": [
+        {
+          "description": "response should be an error",
+          "program": ".receivedResponse.error != null"
+        },
+        {
+          "description": "error code should be -32602",
+          "program": ".receivedResponse.error.code == .expectedResponse.error.code"
+        }
+      ]
+    }
+  ]
+}

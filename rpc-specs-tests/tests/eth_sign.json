@@ -1,0 +1,82 @@
+{
+  "title" : "eth_sign",
+
+  "schema": {
+    "$ref": "../schemas/eth_sign.json"
+  },
+
+  "chainConfig" : {
+    "$ref": "../configs/bcRPC_API_Test.json"
+  },
+
+  "tests": [
+    {
+      "title": "eth_sign message 0xdeadbeef",
+      "request" : {
+        "method" : "eth_sign",
+        "params" : ["0x4898dd2725b0835bf972d9d6c8b65c59de7b3daf", "0xdeadbeef"]
+      },
+      "expectedResponse" : {
+        "result": "0xec39733b153542268d8f057ebd853b6a0f2f2ebd5a22b7e34a0d6a4bac1d04ad7346e51c8b03b83973f4a492d04487cebfaaa20065b5ad2a4a826fa9bd72b56e1c"
+      },
+      "asserts": [
+        {
+          "description": "response is not empty",
+          "program": ".receivedResponse.result != null"
+        },
+        {
+          "description" : "signed message should be length 132",
+          "program" : ".receivedResponse.result | length == 132"
+        }
+      ]
+    },
+    {
+      "title": "eth_sign with no parameters",
+      "request" : {
+        "method" : "eth_sign",
+        "params" : [],
+        "shouldFailSchema": true
+      },
+      "expectedResponse" : {
+        "error": {
+          "message": "missing value for required argument 0",
+          "code": -32602
+        }
+      },
+      "asserts": [
+        {
+          "description": "response should be an error",
+          "program": ".receivedResponse.error != null"
+        },
+        {
+          "description": "error code should be -32602",
+          "program": ".receivedResponse.error.code == .expectedResponse.error.code"
+        }
+      ]
+    },
+    {
+      "title": "eth_sign with one parameter",
+      "request" : {
+        "method" : "eth_sign",
+        "params" : ["0x4898dd2725b0835bf972d9d6c8b65c59de7b3daf"],
+        "shouldFailSchema": true
+      },
+      "expectedResponse" : {
+        "error": {
+          "message": "missing value for required argument 1",
+          "code": -32602
+        }
+      },
+      "asserts": [
+        {
+          "description": "response should be an error",
+          "program": ".receivedResponse.error != null"
+        },
+        {
+          "description": "error code should be -32602",
+          "program": ".receivedResponse.error.code == .expectedResponse.error.code"
+        }
+      ]
+    }
+  ]
+}

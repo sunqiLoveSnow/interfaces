@@ -1,0 +1,135 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "eth_getTransactionByHash",
+    "title": "eth_getTransactionByHash",
+    "description": "eth_getTransactionByHash JSON-RPC method request and response schema.",
+
+    "request": {
+      "id": "#request",
+      "allOf": [
+        { "$ref": "jsonrpc-request.json" },
+        { "$ref": "#/definitions/request-obj" }
+      ],
+      "definitions": {
+        "request-obj": {
+          "id": "#request-obj",
+          "properties": {
+            "method": {
+              "type": "string",
+              "enum": ["eth_getTransactionByHash"]
+            },
+            "params": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string",
+                  "description": "DATA, 32 Bytes - hash of a transaction."
+                }
+              ],
+              "minItems": 1,
+              "maxItems": 1
+            }
+          }
+        }
+      }
+    },
+
+
+    "response": {
+      "id": "#response",
+      "allOf": [
+        { "$ref": "jsonrpc-response.json" },
+        { "$ref": "#/definitions/response-obj" }
+      ],
+      "definitions": {
+        "response-obj": {
+          "id": "#response-obj",
+          "properties": {
+        		"result": {
+              "description": "Object - A transaction object, or null when no transaction was found.",
+              "oneOf": [
+                {
+                  "type": "object",
+            			"properties": {
+                    "blockHash": {
+                      "type": "string",
+                      "description": "DATA, 32 Bytes - hash of the block where this transaction was in. null when its pending."
+                    },
+                    "blockNumber": {
+                      "type": "string",
+                      "description": "QUANTITY - block number where this transaction was in. null when its pending."
+                    },
+                    "from": {
+                      "type": "string",
+                      "description": "DATA, 20 Bytes - address of the sender."
+                    },
+                    "gas": {
+                      "type": "string",
+                      "description": "QUANTITY - gas provided by the sender."
+                    },
+                    "gasPrice": {
+                      "type": "string",
+                      "description": "QUANTITY - gas price provided by the sender in Wei."
+                    },
+                    "hash": {
+                      "type": "string",
+                      "description": "DATA, 32 Bytes - hash of the transaction."
+                    },
+                    "input": {
+                      "type": "string",
+                      "description": "DATA - the data send along with the transaction."
+                    },
+                    "nonce": {
+                      "type": "string",
+                      "description": "nonce: QUANTITY - the number of transactions made by the sender prior to this one."
+                    },
+                    "r": {
+                      "type": "string"
+                    },
+                    "s": {
+                      "type": "string"
+                    },
+                    "to": {
+                      "type": "string",
+                      "description": "DATA, 20 Bytes - address of the receiver. null when its a contract creation transaction."
+                    },
+                    "transactionIndex": {
+                      "type": "string",
+                      "description": "QUANTITY - integer of the transactions index position in the block. null when its pending."
+                    },
+                    "v": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "QUANTITY - value transferred in Wei."
+                    }
+                  },
+                  "required": [
+                    "blockHash",
+                    "blockNumber",
+                    "from",
+                    "gas",
+                    "gasPrice",
+                    "hash",
+                    "input",
+                    "nonce",
+                    "r",
+                    "s",
+                    "to",
+                    "transactionIndex",
+                    "v",
+                    "value"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+        	}
+        }
+      }
+    }
+
+}

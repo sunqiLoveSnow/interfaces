@@ -1,0 +1,98 @@
+{
+  "title" : "eth_getBlockTransactionCountByNumber",
+
+  "schema": {
+    "$ref": "../schemas/eth_getBlockTransactionCountByNumber.json"
+  },
+
+  "chainConfig" : {
+    "$ref": "../configs/bcRPC_API_Test.json"
+  },
+
+  "tests": [
+    {
+      "title": "eth_getBlockTransactionCountByNumber for block with one tx",
+      "request" : {
+        "method" : "eth_getBlockTransactionCountByNumber",
+        "params" : ["0x04"]
+      },
+      "expectedResponse" : {
+        "result": "0x1"
+      },
+      "asserts": [
+        {
+          "description": "response is not empty",
+          "program": ".receivedResponse.result != null"
+        },
+        {
+          "description" : "transaction count should be equal",
+          "program" : ".receivedResponse.result == .expectedResponse.result"
+        }
+      ]
+    },
+    {
+      "title": "eth_getBlockTransactionCountByNumber \"earliest\"",
+      "request" : {
+        "method" : "eth_getBlockTransactionCountByNumber",
+        "params" : ["earliest"]
+      },
+      "expectedResponse" : {
+        "result": "0x0"
+      },
+      "asserts": [
+        {
+          "description": "response is not empty",
+          "program": ".receivedResponse.result != null"
+        },
+        {
+          "description" : "transaction count should be equal",
+          "program" : ".receivedResponse.result == .expectedResponse.result"
+        }
+      ]
+    },
+    {
+      "title": "eth_getBlockTransactionCountByNumber \"latest\"",
+      "request" : {
+        "method" : "eth_getBlockTransactionCountByNumber",
+        "params" : ["latest"]
+      },
+      "expectedResponse" : {
+        "result": "0x1"
+      },
+      "asserts": [
+        {
+          "description": "response is not empty",
+          "program": ".receivedResponse.result != null"
+        },
+        {
+          "description" : "transaction count should be equal",
+          "program" : ".receivedResponse.result == .expectedResponse.result"
+        }
+      ]
+    },
+    {
+      "title": "eth_getBlockTransactionCountByNumber with no parameters",
+      "request" : {
+        "method" : "eth_getBlockTransactionCountByNumber",
+        "params" : [],
+        "shouldFailSchema": true
+      },
+      "expectedResponse" : {
+        "error": {
+          "message": "missing value for required argument 0",
+          "code": -32602
+        }
+      },
+      "asserts": [
+        {
+          "description": "response should be an error",
+          "program": ".receivedResponse.error != null"
+        },
+        {
+          "description": "error code should be -32602",
+          "program": ".receivedResponse.error.code == .expectedResponse.error.code"
+        }
+      ]
+    }
+  ]
+}

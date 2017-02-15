@@ -1,0 +1,119 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "debug_storageRangeAt",
+    "title": "debug_storageRangeAt",
+    "description": "debug_storageRangeAt JSON-RPC method request and response schema.",
+
+    "request": {
+      "id": "#request",
+      "allOf": [
+        { "$ref": "jsonrpc-request.json" },
+        { "$ref": "#/definitions/request-obj" }
+      ],
+      "definitions": {
+        "request-obj": {
+          "id": "#request-obj",
+          "properties": {
+            "method": {
+              "type": "string",
+              "enum": ["debug_storageRangeAt"]
+            },
+            "params": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string",
+                  "description": "DATA, 32 Bytes - Hash of a block."
+                },
+                {
+                  "type": "number",
+                  "description": "QUANTITY - index of transaction in a block."
+                },
+                {
+                  "type": "string",
+                  "description": "DATA, 20 Bytes - address of account."
+                },
+                {
+                  "type": "string",
+                  "description": "DATA, 32 Bytes - starting storage key of range."
+                },
+                {
+                  "type": "string",
+                  "description": "DATA, 32 Bytes - ending storage key of range."
+                },
+                {
+                  "type": "number",
+                  "description": "QUANTITY - maximum limit of storage results to return."
+                }
+              ],
+              "minItems": 6,
+              "maxItems": 6
+            }
+          }
+        }
+      }
+    },
+
+
+    "response": {
+      "id": "#response",
+      "allOf": [
+        { "$ref": "jsonrpc-response.json" },
+        { "$ref": "#/definitions/response-obj" }
+      ],
+      "definitions": {
+        "response-obj": {
+          "id": "#response-obj",
+          "properties": {
+        		"result": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "description": "Return an array of storage results containing key, value, and hashedKey.",
+                  "properties": {
+                    "storage": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "hashedKey": {
+                            "type": "string",
+                            "description": "The Keccak-256 hash of the storage location key, used in the secure trie."
+                          },
+                          "value": {
+                            "type": "string",
+                            "description": "The 32-byte value at the storage location."
+                          },
+                          "key": {
+                            "type": "string",
+                            "description": "The storage location key."
+                          }
+                        },
+                        "required": [
+                          "hashedKey",
+                          "value",
+                          "key"
+                        ]
+                      }
+                    },
+                    "complete": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "storage",
+                    "complete"
+                  ]
+                },
+                {
+                  "type": "null",
+                  "description": "Return null if block does not exist."
+                }
+              ]
+        		}
+        	}
+        }
+      }
+    }
+
+}

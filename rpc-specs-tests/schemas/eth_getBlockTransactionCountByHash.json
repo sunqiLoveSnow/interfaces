@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "eth_getBlockTransactionCountByHash",
+    "title": "eth_getBlockTransactionCountByHash",
+    "description": "eth_getBlockTransactionCountByHash JSON-RPC method request and response schema.",
+
+    "request": {
+      "id": "#request",
+      "allOf": [
+        { "$ref": "jsonrpc-request.json" },
+        { "$ref": "#/definitions/request-obj" }
+      ],
+      "definitions": {
+        "request-obj": {
+          "id": "#request-obj",
+          "properties": {
+            "method": {
+              "type": "string",
+              "enum": ["eth_getBlockTransactionCountByHash"]
+            },
+            "params": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string",
+                  "description": "DATA, 32 Bytes - Hash of a block."
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+
+
+    "response": {
+      "id": "#response",
+      "allOf": [
+        { "$ref": "jsonrpc-response.json" },
+        { "$ref": "#/definitions/response-obj" }
+      ],
+      "definitions": {
+        "response-obj": {
+          "id": "#response-obj",
+          "properties": {
+        		"result": {
+              "type": "string",
+              "description": "QUANTITY - integer of the number of transactions in this block."
+        		}
+        	}
+        }
+      }
+    }
+
+}

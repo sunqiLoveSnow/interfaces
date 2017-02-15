@@ -1,0 +1,78 @@
+{
+  "title" : "eth_getUncleCountByBlockHash",
+
+  "schema": {
+    "$ref": "../schemas/eth_getUncleCountByBlockHash.json"
+  },
+
+  "chainConfig" : {
+    "$ref": "../configs/bcRPC_API_Test.json"
+  },
+
+  "tests": [
+    {
+      "title": "eth_getUncleCountByBlockHash for block with two uncles",
+      "request" : {
+        "method" : "eth_getUncleCountByBlockHash",
+        "params" : ["0x4e9a67b663f9abe03e7e9fd5452c9497998337077122f44ee78a466f6a7358de"]
+      },
+      "expectedResponse" : {
+        "result": "0x2"
+      },
+      "asserts": [
+        {
+          "description": "response is not empty",
+          "program": ".receivedResponse.result != null"
+        },
+        {
+          "description" : "uncle count should be equal",
+          "program" : ".receivedResponse.result == .expectedResponse.result"
+        }
+      ]
+    },
+    {
+      "title": "eth_getUncleCountByBlockHash for block that doesn't exist",
+      "request" : {
+        "method" : "eth_getUncleCountByBlockHash",
+        "params" : ["0x878a132155f53adb7c993ded4cfb687977397d63d873fcdbeb06c18cac907a5c"]
+      },
+      "expectedResponse" : {
+        "result": null
+      },
+      "asserts": [
+        {
+          "description": "response should be null",
+          "program": ".receivedResponse.result == null"
+        },
+        {
+          "description" : "response should not be an error",
+          "program" : ".receivedResponse.error == null"
+        }
+      ]
+    },
+    {
+      "title": "eth_getUncleCountByBlockHash no parameter",
+      "request" : {
+        "method" : "eth_getUncleCountByBlockHash",
+        "params" : [],
+        "shouldFailSchema": true
+      },
+      "expectedResponse" : {
+        "error": {
+          "message": "missing value for required argument 0",
+          "code": -32602
+        }
+      },
+      "asserts": [
+        {
+          "description": "response should be an error",
+          "program": ".receivedResponse.error != null"
+        },
+        {
+          "description": "error code should be -32602",
+          "program": ".receivedResponse.error.code == .expectedResponse.error.code"
+        }
+      ]
+    }
+  ]
+}

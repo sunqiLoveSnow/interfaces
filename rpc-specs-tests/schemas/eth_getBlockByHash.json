@@ -1,0 +1,210 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "eth_getBlockByHash",
+    "title": "eth_getBlockByHash",
+    "description": "eth_getBlockByHash JSON-RPC method request and response schema.",
+
+    "request": {
+      "id": "#request",
+      "allOf": [
+        { "$ref": "jsonrpc-request.json" },
+        { "$ref": "#/definitions/request-obj" }
+      ],
+      "definitions": {
+        "request-obj": {
+          "id": "#request-obj",
+          "properties": {
+            "method": {
+              "type": "string",
+              "enum": ["eth_getBlockByHash"]
+            },
+            "params": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string",
+                  "description": "DATA, 32 Bytes - Hash of a block."
+                },
+                {
+                  "type": "boolean",
+                  "description": "Boolean - If true it returns the full transaction objects, if false only the hashes of the transactions."
+                }
+              ],
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        }
+      }
+    },
+
+
+    "response": {
+      "id": "#response",
+      "allOf": [
+        { "$ref": "jsonrpc-response.json" },
+        { "$ref": "#/definitions/response-obj" }
+      ],
+      "definitions": {
+        "response-obj": {
+          "id": "#response-obj",
+          "properties": {
+        		"result": {
+        			"type": "object",
+        			"properties": {
+        				"difficulty": {
+        					"type": "string",
+        					"description": "QUANTITY - integer of the difficulty for this block."
+        				},
+        				"extraData": {
+        					"type": "string",
+        					"description": "DATA - the \"extra data\" field of this block."
+        				},
+        				"gasLimit": {
+        					"type": "string",
+        					"description": "QUANTITY - the maximum gas allowed in this block."
+        				},
+        				"gasUsed": {
+        					"type": "string",
+        					"description": "QUANTITY - the total used gas by all transactions in this block."
+        				},
+        				"hash": {
+        					"type": "string",
+        					"description": "DATA, 32 Bytes - hash of the block. null when its pending block."
+        				},
+        				"logsBloom": {
+        					"type": "string",
+        					"description": "DATA, 256 Bytes - the bloom filter for the logs of the block. null when its pending block."
+        				},
+        				"miner": {
+        					"type": "string",
+        					"description": "DATA, 20 Bytes - the address of the beneficiary to whom the mining rewards were given."
+        				},
+        				"mixHash": {
+        					"type": "string"
+        				},
+        				"nonce": {
+        					"type": "string",
+        					"description": "DATA, 8 Bytes - hash of the generated proof-of-work. null when its pending block."
+        				},
+        				"number": {
+        					"type": "string",
+        					"description": "QUANTITY - the block number. null when its pending block."
+        				},
+        				"parentHash": {
+        					"type": "string",
+        					"description": "DATA, 32 Bytes - hash of the parent block."
+        				},
+        				"receiptsRoot": {
+        					"type": "string",
+        					"description": "DATA, 32 Bytes - the root of the receipts trie of the block."
+        				},
+        				"sha3Uncles": {
+        					"type": "string",
+        					"description": "DATA, 32 Bytes - SHA3 of the uncles data in the block."
+        				},
+        				"size": {
+        					"type": "string",
+        					"description": "QUANTITY - integer the size of this block in bytes."
+        				},
+        				"stateRoot": {
+        					"type": "string",
+        					"description": "DATA, 32 Bytes - the root of the final state trie of the block."
+        				},
+        				"timestamp": {
+        					"type": "string",
+        					"description": "QUANTITY - the unix timestamp for when the block was collated."
+        				},
+        				"totalDifficulty": {
+        					"type": "string",
+        					"description": "QUANTITY - integer of the total difficulty of the chain until this block."
+        				},
+        				"transactions": {
+        					"type": "array",
+        					"items": {
+                    "oneOf": [
+                      { "type": "string" },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "gasPrice": {
+                            "type": "string"
+                          },
+                          "v": {
+                            "type": "string"
+                          },
+                          "blockHash": {
+                            "type": "string"
+                          },
+                          "to": {
+                            "type": "string"
+                          },
+                          "nonce": {
+                            "type": "string"
+                          },
+                          "gas": {
+                            "type": "string"
+                          },
+                          "blockNumber": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          },
+                          "hash": {
+                            "type": "string"
+                          },
+                          "transactionIndex": {
+                            "type": "string"
+                          },
+                          "from": {
+                            "type": "string"
+                          },
+                          "input": {
+                            "type": "string"
+                          },
+                          "r": {
+                            "type": "string"
+                          },
+                          "s": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "gasPrice",
+                          "v",
+                          "blockHash",
+                          "to",
+                          "nonce",
+                          "gas",
+                          "blockNumber",
+                          "value",
+                          "hash",
+                          "transactionIndex",
+                          "from",
+                          "input",
+                          "r",
+                          "s"
+                        ]
+                      }
+                    ]
+        					},
+        					"description": "Array - Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter."
+        				},
+        				"transactionsRoot": {
+        					"type": "string",
+        					"description": "DATA, 32 Bytes - the root of the transaction trie of the block."
+        				},
+        				"uncles": {
+        					"type": "array",
+        					"items": {},
+        					"description": "Array - Array of uncle hashes."
+        				}
+        			}
+        		}
+        	}
+        }
+      }
+    }
+
+}

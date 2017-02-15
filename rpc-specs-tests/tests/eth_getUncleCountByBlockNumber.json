@@ -1,0 +1,78 @@
+{
+  "title" : "eth_getUncleCountByBlockNumber",
+
+  "schema": {
+    "$ref": "../schemas/eth_getUncleCountByBlockNumber.json"
+  },
+
+  "chainConfig" : {
+    "$ref": "../configs/bcRPC_API_Test.json"
+  },
+
+  "tests": [
+    {
+      "title": "eth_getUncleCountByBlockNumber for block with two uncles",
+      "request" : {
+        "method" : "eth_getUncleCountByBlockNumber",
+        "params" : ["0x04"]
+      },
+      "expectedResponse" : {
+        "result": "0x2"
+      },
+      "asserts": [
+        {
+          "description": "response is not empty",
+          "program": ".receivedResponse.result != null"
+        },
+        {
+          "description" : "uncle count should be equal",
+          "program" : ".receivedResponse.result == .expectedResponse.result"
+        }
+      ]
+    },
+    {
+      "title": "eth_getUncleCountByBlockNumber for block that doesn't exist",
+      "request" : {
+        "method" : "eth_getUncleCountByBlockNumber",
+        "params" : ["0xffff"]
+      },
+      "expectedResponse" : {
+        "result": null
+      },
+      "asserts": [
+        {
+          "description": "response should be null",
+          "program": ".receivedResponse.result == null"
+        },
+        {
+          "description" : "response should not be an error",
+          "program" : ".receivedResponse.error == null"
+        }
+      ]
+    },
+    {
+      "title": "eth_getUncleCountByBlockNumber no parameter",
+      "request" : {
+        "method" : "eth_getUncleCountByBlockNumber",
+        "params" : [],
+        "shouldFailSchema": true
+      },
+      "expectedResponse" : {
+        "error": {
+          "message": "missing value for required argument 0",
+          "code": -32602
+        }
+      },
+      "asserts": [
+        {
+          "description": "response should be an error",
+          "program": ".receivedResponse.error != null"
+        },
+        {
+          "description": "error code should be -32602",
+          "program": ".receivedResponse.error.code == .expectedResponse.error.code"
+        }
+      ]
+    }
+  ]
+}

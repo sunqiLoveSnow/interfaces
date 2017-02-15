@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "eth_getUncleCountByBlockNumber",
+    "title": "eth_getUncleCountByBlockNumber",
+    "description": "eth_getUncleCountByBlockNumber JSON-RPC method request and response schema.",
+
+    "request": {
+      "id": "#request",
+      "allOf": [
+        { "$ref": "jsonrpc-request.json" },
+        { "$ref": "#/definitions/request-obj" }
+      ],
+      "definitions": {
+        "request-obj": {
+          "id": "#request-obj",
+          "properties": {
+            "method": {
+              "type": "string",
+              "enum": ["eth_getUncleCountByBlockNumber"]
+            },
+            "params": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string",
+                  "description": "QUANTITY|TAG - integer of a block number, or the string \"earliest\", \"latest\" or \"pending\", see the default block parameter."
+                }
+              ],
+              "minItems": 1,
+              "maxItems": 1
+            }
+          }
+        }
+      }
+    },
+
+
+    "response": {
+      "id": "#response",
+      "allOf": [
+        { "$ref": "jsonrpc-response.json" },
+        { "$ref": "#/definitions/response-obj" }
+      ],
+      "definitions": {
+        "response-obj": {
+          "id": "#response-obj",
+          "properties": {
+        		"result": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "QUANTITY - integer of the number of uncles in this block."
+                },
+                {
+                  "type": "null",
+                  "description": "Return null if block does not exist."
+                }
+              ]
+        		}
+        	}
+        }
+      }
+    }
+
+}

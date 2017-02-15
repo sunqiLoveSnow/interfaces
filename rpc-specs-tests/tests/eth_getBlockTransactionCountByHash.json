@@ -1,0 +1,34 @@
+{
+  "title" : "eth_getBlockTransactionCountByHash",
+
+  "schema": {
+    "$ref": "../schemas/eth_getBlockTransactionCountByHash.json"
+  },
+
+  "chainConfig" : {
+    "$ref": "../configs/bcRPC_API_Test.json"
+  },
+
+  "tests": [
+    {
+      "title": "eth_getBlockTransactionCountByHash for block with one tx",
+      "request" : {
+        "method" : "eth_getBlockTransactionCountByHash",
+        "params" : ["0x4e9a67b663f9abe03e7e9fd5452c9497998337077122f44ee78a466f6a7358de"]
+      },
+      "expectedResponse" : {
+        "result": "0x1"
+      },
+      "asserts": [
+        {
+          "description": "response is not empty",
+          "program": ".receivedResponse.result != null"
+        },
+        {
+          "description" : "transaction count should be equal",
+          "program" : ".receivedResponse.result == .expectedResponse.result"
+        }
+      ]
+    }
+  ]
+}
