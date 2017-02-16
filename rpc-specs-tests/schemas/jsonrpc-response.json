@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "description": "A JSON RPC 2.0 response",
+    "description": "A JSON RPC 2.0 response, source https://github.com/fge/sample-json-schemas",
     "oneOf": [
         { "$ref": "#/definitions/success" },
         { "$ref": "#/definitions/error" },
