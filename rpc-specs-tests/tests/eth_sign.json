@@ -11,13 +11,13 @@
 
   "tests": [
     {
-      "title": "eth_sign message 0xdeadbeef",
+      "title": "eth_sign message \"hello world\"",
       "request" : {
         "method" : "eth_sign",
-        "params" : ["0x4898dd2725b0835bf972d9d6c8b65c59de7b3daf", "0xdeadbeef"]
+        "params" : ["0xbe93f9bacbcffc8ee6663f2647917ed7a20a57bb", "0x68656c6c6f20776f726c64"]
       },
       "expectedResponse" : {
-        "result": "0xec39733b153542268d8f057ebd853b6a0f2f2ebd5a22b7e34a0d6a4bac1d04ad7346e51c8b03b83973f4a492d04487cebfaaa20065b5ad2a4a826fa9bd72b56e1c"
+        "result": "0xce909e8ea6851bc36c007a0072d0524b07a3ff8d4e623aca4c71ca8e57250c4d0a3fc38fa8fbaaa81ead4b9f6bd03356b6f8bf18bccad167d78891636e1d69561b"
       },
       "asserts": [
         {
@@ -27,6 +27,10 @@
         {
           "description" : "signed message should be length 132",
           "program" : ".receivedResponse.result | length == 132"
+        },
+        {
+          "description": "signatures should be equal",
+          "program": ".receivedResponse.result == .expectedResponse.result"
         }
       ]
     },
@@ -58,7 +62,7 @@
       "title": "eth_sign with one parameter",
       "request" : {
         "method" : "eth_sign",
-        "params" : ["0x4898dd2725b0835bf972d9d6c8b65c59de7b3daf"],
+        "params" : ["0xbe93f9bacbcffc8ee6663f2647917ed7a20a57bb"],
         "shouldFailSchema": true
       },
       "expectedResponse" : {
