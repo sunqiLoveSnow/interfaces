@@ -102,14 +102,18 @@ def run_test(test_name, session, rpc_url, reporter):
                         'expectedResponse': expected_response }
         details = assert_dict
         for assertion in test_case['asserts']:
-            assertion_result = jq(assertion['program']).transform(assert_dict)
+            try:
+                assertion_result = jq(assertion['program']).transform(assert_dict)
+            except Exception as e:
+                assertion_result = False
+                details['assert_exception'] = str(e)
             details['assertion_program'] = assertion['program']
             print("{} : {}".format(assertion['description'], assertion_result))
             if assertion_result == True:
                 reporter.subresult(test_case['title'] + '. ' + assertion['description'] + '.', True, None, None)
             else:
                 assert_dict['requestObject'] = test_case['request']
-                reporter.subresult(test_case['title'] + '. ' + assertion['description'] + '.', False, "assertion failed: " + assertion['program'], assert_dict)
+                reporter.subresult(test_case['title'] + '. ' + assertion['description'] + '.', False, "assertion failed: " + assertion['program'], details)
 
 
 
