@@ -53,7 +53,7 @@
         },
         {
           "description": "transactions should be hashes",
-          "program": ".receivedResponse.result.transactions[] | type == \"string\""
+          "program": ".receivedResponse.result.transactions != null and (.receivedResponse.result.transactions[] | type == \"string\")"
         }
       ]
     },
@@ -114,7 +114,7 @@
         },
         {
           "description": "transactions should be objects",
-          "program": ".receivedResponse.result.transactions[] | type == \"object\""
+          "program": ".receivedResponse.result.transactions != null and (.receivedResponse.result.transactions[] | type == \"object\")"
         }
       ]
     },
