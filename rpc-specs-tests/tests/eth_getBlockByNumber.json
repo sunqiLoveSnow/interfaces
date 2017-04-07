@@ -14,7 +14,7 @@
       "title": "eth_getBlockByNumber without full transactions",
       "request" : {
         "method" : "eth_getBlockByNumber",
-        "params" : ["0x02", false]
+        "params" : ["0x2", false]
       },
       "expectedResponse" : {
         "result": {
@@ -61,7 +61,7 @@
       "title": "eth_getBlockByNumber with full transactions",
       "request" : {
         "method" : "eth_getBlockByNumber",
-        "params" : ["0x02", true]
+        "params" : ["0x2", true]
       },
       "expectedResponse" : {
         "result": {
@@ -146,7 +146,7 @@
       "title": "eth_getBlockByNumber with one parameter",
       "request" : {
         "method" : "eth_getBlockByHash",
-        "params" : ["0x02"],
+        "params" : ["0x2"],
         "shouldFailSchema": true
       },
       "expectedResponse" : {
