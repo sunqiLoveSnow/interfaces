@@ -14,7 +14,7 @@
       "title": "eth_getUncleCountByBlockNumber for block with two uncles",
       "request" : {
         "method" : "eth_getUncleCountByBlockNumber",
-        "params" : ["0x04"]
+        "params" : ["0x4"]
       },
       "expectedResponse" : {
         "result": "0x2"

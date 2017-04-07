@@ -14,7 +14,7 @@
       "title": "eth_getBlockTransactionCountByNumber for block with one tx",
       "request" : {
         "method" : "eth_getBlockTransactionCountByNumber",
-        "params" : ["0x04"]
+        "params" : ["0x4"]
       },
       "expectedResponse" : {
         "result": "0x1"
