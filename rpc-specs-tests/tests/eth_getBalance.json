@@ -1,0 +1,38 @@
+{
+    "title" : "eth_getBalance",
+  
+    "schema": {
+      "$ref": "../schemas/eth_getBalance.json"
+    },
+  
+    "chainConfig" : {
+      "$ref": "../configs/bcRPC_API_Test.json"
+    },
+  
+    "tests": [
+      {
+        "title": "eth_getBalance for block with one tx",
+        "request" : {
+          "method" : "eth_getBalance",
+          "params" : [
+            "0xc94770007dda54cF92009BFF0dE90c06F603a09f",
+            "latest"
+          ]
+        },
+        "expectedResponse" : {
+          "result": "0x0234c8a3397aab58"
+        },
+        "asserts": [
+          {
+            "description": "response is not empty",
+            "program": ".receivedResponse.result != null"
+          },
+          {
+            "description" : "transaction count should be equal",
+            "program" : ".receivedResponse.result == .expectedResponse.result"
+          }
+        ]
+      }
+    ]
+  }
+  

@@ -1,0 +1,10 @@
+eth_getBlockByHash
+eth_getBlockByNumber
+eth_getBlockTransactionCountByHash
+eth_getBlockTransactionCountByNumber
+eth_getTransactionByHash
+eth_getUncleByBlockHashAndIndex
+eth_getUncleByBlockNumberAndIndex
+eth_getUncleCountByBlockHash
+eth_getUncleCountByBlockNumber
+eth_sign

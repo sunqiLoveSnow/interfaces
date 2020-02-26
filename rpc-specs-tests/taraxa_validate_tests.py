@@ -25,6 +25,10 @@ class MockReporter:
 
     def subresult(self, name, success, errormsg, details = None):
         self.test_results.append(success)
+        if not success:
+            print("FAIL-------------------------------")
+        else:
+            print("SUCCESS-------------------------------")
         print("mock reporter subresult: {} {} {}".format(name, success, errormsg))
         return
 
@@ -130,14 +134,17 @@ def run_test(test_name, session, rpc_url, reporter):
 
 
 def main():
-    client_rpc_url = "http://127.0.0.1:8545"
+    import taraxa_config as c
+    # client_rpc_url = "http://127.0.0.1:8545"
+    client_rpc_url = c.NODE
+    print("connecting " + c.NODE)
     sesh = requests.Session()
 
     mock_reporter = MockReporter()
 
-    test_files = os.listdir("./tests")
+    # test_files = os.listdir("./tests")
 
-    for test_name in test_files:
+    for test_name in c.TEST_NAMES:
         run_test(test_name, sesh, client_rpc_url, mock_reporter)
 
     print("ran all test cases against the schemas.")

@@ -1,0 +1,35 @@
+{
+    "title" : "eth_blockNumber",
+  
+    "schema": {
+      "$ref": "../schemas/eth_blockNumber.json"
+    },
+  
+    "chainConfig" : {
+      "$ref": "../configs/bcRPC_API_Test.json"
+    },
+  
+    "tests": [
+      {
+        "title": "eth_blockNumber for block with one tx",
+        "request" : {
+          "method" : "eth_blockNumber",
+          "params" : []
+        },
+        "expectedResponse" : {
+          "result": "0x74"
+        },
+        "asserts": [
+          {
+            "description": "response is not empty",
+            "program": ".receivedResponse.result != null"
+          },
+          {
+            "description" : "transaction count should be equal",
+            "program" : ".receivedResponse.result == .expectedResponse.result"
+          }
+        ]
+      }
+    ]
+  }
+  

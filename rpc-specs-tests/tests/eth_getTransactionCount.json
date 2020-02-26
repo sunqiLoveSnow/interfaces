@@ -1,0 +1,35 @@
+{
+    "title" : "eth_getTransactionCount",
+  
+    "schema": {
+      "$ref": "../schemas/eth_getTransactionCount.json"
+    },
+  
+    "chainConfig" : {
+      "$ref": "../configs/bcRPC_API_Test.json"
+    },
+  
+    "tests": [
+      {
+        "title": "eth_getTransactionCount for block with one tx",
+        "request" : {
+          "method" : "eth_getTransactionCount",
+          "params" : ["0xc94770007dda54cF92009BFF0dE90c06F603a09f","latest"]
+        },
+        "expectedResponse" : {
+          "result": "0x1"
+        },
+        "asserts": [
+          {
+            "description": "response is not empty",
+            "program": ".receivedResponse.result != null"
+          },
+          {
+            "description" : "transaction count should be equal",
+            "program" : ".receivedResponse.result == .expectedResponse.result"
+          }
+        ]
+      }
+    ]
+  }
+  

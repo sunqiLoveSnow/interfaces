@@ -1,0 +1,42 @@
+{
+    "title" : "eth_getTransactionReceipt",
+  
+    "schema": {
+      "$ref": "../schemas/eth_getTransactionReceipt.json"
+    },
+  
+    "chainConfig" : {
+      "$ref": "../configs/bcRPC_API_Test.json"
+    },
+  
+    "tests": [
+      {
+        "title": "eth_getTransactionReceipt without full transactions",
+        "request" : {
+          "method" : "eth_getTransactionReceipt",
+          "params" : ["0x0e29f455b8db7b15042efe9eabe0beb0ce2c7901919bba1107b1352191e09942"]
+        },
+        "expectedResponse" : {
+          "result": {
+            "transactionHash": "0x0e29f455b8db7b15042efe9eabe0beb0ce2c7901919bba1107b1352191e09942",
+            "transactionIndex": "0x1",
+            "blockNumber": "0xb",
+            "blockHash": "0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b",
+            "cumulativeGasUsed": "0x33bc",
+            "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "gasUsed": "0x4dc",
+            "contractAddress": ["0xb60e8dd61c5d32be8058bb8eb970870f07233155"],
+            "logs": [],
+            "status": "0x1"
+          }
+        },
+        "asserts": [
+          {
+            "description": "response has blockHeader hash",
+            "program": ".receivedResponse.result == null"
+          }
+        ]
+      }
+    ]
+}
+  

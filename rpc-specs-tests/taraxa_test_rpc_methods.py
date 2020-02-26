@@ -23,6 +23,10 @@ class MockReporter:
         return
 
     def subresult(self, name, success, errormsg, details = None):
+        if not success:
+            print("FAIL-------------------------------")
+        else:
+            print("SUCCESS-------------------------------")
         print("mock reporter subresult:", name, success, errormsg)
         return
 
@@ -116,16 +120,16 @@ def run_test(test_name, session, rpc_url, reporter):
                 reporter.subresult(test_case['title'] + '. ' + assertion['description'] + '.', False, "assertion failed: " + assertion['program'], details)
 
 
-
-
-
 def main(args):
-    client_rpc_url = "http://127.0.0.1:8545"
+    import taraxa_config as c
+    # client_rpc_url = "http://127.0.0.1:8545"
+    client_rpc_url = c.NODE
+    print("connecting " + c.NODE)
     sesh = requests.Session()
 
     mock_reporter = MockReporter()
-
-    for test_name in TEST_NAMES:
+    # test_files = os.listdir("./tests")
+    for test_name in c.TEST_NAMES:
         run_test(test_name, sesh, client_rpc_url, mock_reporter)
 
     print("all tests done.")

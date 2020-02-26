@@ -1,0 +1,127 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "eth_getTransactionReceipt",
+    "title": "eth_getTransactionReceipt",
+    "description": "eth_getTransactionReceipt JSON-RPC method request and response schema.",
+
+    "request": {
+      "id": "#request",
+      "allOf": [
+        { "$ref": "jsonrpc-request.json" },
+        { "$ref": "#/definitions/request-obj" }
+      ],
+      "definitions": {
+        "request-obj": {
+          "id": "#request-obj",
+          "properties": {
+            "method": {
+              "type": "string",
+              "enum": ["eth_getTransactionReceipt"]
+            },
+            "params": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string",
+                  "description": "DATA, 32 Bytes - hash of a transaction."
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+
+
+    "response": {
+      "id": "#response",
+      "allOf": [
+        { "$ref": "jsonrpc-response.json" },
+        { "$ref": "#/definitions/response-obj" }
+      ],
+      "definitions": {
+        "response-obj": {
+            "id": "#response-obj",
+            "properties": {
+                  "result": {
+                "description": "Object - A transaction receipt object, or null when no transaction was found.",
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "blockHash": {
+                        "type": "string",
+                        "description": "DATA, 32 Bytes - hash of the block where this transaction was in. null when its pending."
+                      },
+                      "blockNumber": {
+                        "type": "string",
+                        "description": "QUANTITY - block number where this transaction was in. null when its pending."
+                      },
+                      "from": {
+                        "type": "string",
+                        "description": "DATA, 20 Bytes - address of the sender."
+                      },
+                      "to": {
+                        "type": "string",
+                        "description": "DATA, 20 Bytes - address of the receiver. null when its a contract creation transaction."
+                      },
+                      "transactionIndex": {
+                        "type": "string",
+                        "description": "QUANTITY - integer of the transactions index position in the block. null when its pending."
+                      },
+                      "cumulativeGasUsed ": {
+                        "type": "string",
+                        "description": "QUANTITY - The total amount of gas used when this transaction was executed in the block."
+                      },
+                      "gasUsed": {
+                        "type": "string",
+                        "description": "QUANTITY - The amount of gas used by this specific transaction alone."
+                      },
+                      "contractAddress": {
+                        "type": "array",
+                        "description":"DATA, 20 Bytes - The contract address created, if the transaction was a contract creation, otherwise null.",
+                        "items": {
+                            "oneOf": [
+                                { "type": "string" },
+                                { "type": "null" }
+                            ]
+                        }
+                      },
+                      "logs":{
+                          "type" : "array",
+                          "description":"Array - Array of log objects, which this transaction generated."
+                      },
+                      "logsBloom":{
+                          "type" : "string",
+                          "description":"DATA, 256 Bytes - Bloom filter for light clients to quickly retrieve related logs."
+                      },
+                      "status":{
+                          "type" : "string",
+                          "description":"QUANTITY either 1 (success) or 0 (failure)"
+                      },
+                      "root":{
+                          "type" : "string",
+                          "description":"DATA 32 bytes of post-transaction stateroot (pre Byzantium)"
+                      }
+                    },
+                    "required": [
+                      "blockHash",
+                      "blockNumber",
+                      "gasUsed",
+                      "contractAddress",
+                      "cumulativeGasUsed",
+                      "transactionIndex",
+                      "transactionHash"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+        }
+      }
+    }
+
+}
