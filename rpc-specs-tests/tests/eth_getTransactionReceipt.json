@@ -33,7 +33,7 @@
         "asserts": [
           {
             "description": "response has blockHeader hash",
-            "program": ".receivedResponse.result == null"
+            "program": ".receivedResponse.result != null"
           }
         ]
       }
