@@ -20,6 +20,7 @@ class fixResolver(jsonschema.RefResolver):
 class MockReporter:
 
     def __init__(self):
+        self.result = {}
         return
 
     def subresult(self, name, success, errormsg, details = None):
@@ -28,7 +29,11 @@ class MockReporter:
         else:
             print("SUCCESS-------------------------------")
         print("mock reporter subresult:", name, success, errormsg)
+        self.result[self.test_name][name] = success
         return
+    def add_item(self, test_name):
+        self.test_name = test_name
+        self.result[test_name] = {}
 
 
 
@@ -49,6 +54,8 @@ def run_test(test_name, session, rpc_url, reporter):
 
     with open('tests/' + schema_file) as schema_data:
       rpc_method_schema = json.load(schema_data)
+    
+    reporter.add_item(test_spec['title'])
 
     for test_case in test_spec['tests']:
         print("running test: {}".format(test_case['title']))
@@ -133,6 +140,7 @@ def main(args):
         run_test(test_name, sesh, client_rpc_url, mock_reporter)
 
     print("all tests done.")
+    json.dump(mock_reporter.result, open('summary_rpc_method.json','w'))
 
 
 
