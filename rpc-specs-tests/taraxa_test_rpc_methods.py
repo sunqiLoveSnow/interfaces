@@ -140,7 +140,7 @@ def main(args):
         run_test(test_name, sesh, client_rpc_url, mock_reporter)
 
     print("all tests done.")
-    json.dump(mock_reporter.result, open('summary_rpc_method.json','w'))
+    json.dump(mock_reporter.result, open('summary_rpc_method.json','w'), indent=4)
 
 
 

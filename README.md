@@ -11,21 +11,28 @@ This includes (but is not limited to):
 
 # Deps
 pip2 install -r requirements.txt
-# Start Node
-this step can be left out if just connect to a public net
-## start with docker
+# Standalone Mode
+the test script directly connect to a node
+## Start Node
+this step can be left out if just connect to a existing testnet
+### start with docker
 to be continued...
+
+# Hive Simulator Mode
+refer to hive project which is triangle-arch. 
+for taraxa-node, this is to be continued...
+
 # Config
 edit rpc-specs-tests/taraxa_config.py
 ```
-NODE='' # a eth compat node
-TEST_NAMES='' # name of the tests 
+NODE='' # a eth compat node you wanna test with, http(s) endpoint
+TEST_NAMES='' # names of the tests, a subset of json filenames under test directory 
 ```
 
 # Run
 
 ```
 -> cd rpc-specs-tests
--> python2 taraxa_validate_tests.py | tee validate.log
 -> python2 taraxa_test_rpc_methods.py | tee test_rpc_methods.log
+-> cat summary_rpc_method.json
 ```
